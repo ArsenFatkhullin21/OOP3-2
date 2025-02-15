@@ -6,9 +6,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -109,11 +107,11 @@ public class HelloApplication extends Application {
         VBox vBoxB = new VBox(10,textFieldB, spinnerB, sliderB);
         VBox vBoxC = new VBox(10,textFieldC, spinnerC, sliderC);
 
-        HBox hBox = new HBox(50,vBoxA, vBoxB, vBoxC);
-        BorderPane borderPane = new BorderPane();
-        borderPane.setCenter(hBox);
+        FlowPane hBox = new FlowPane(vBoxA, vBoxB, vBoxC);
+        hBox.setHgap(50);
+        StackPane stackPane = new StackPane(hBox);
 
-        Scene scene = new Scene(borderPane, 320, 240);
+        Scene scene = new Scene(stackPane, 320, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
@@ -131,6 +129,11 @@ public class HelloApplication extends Application {
         sliderA.setValue(model.getA());
         sliderB.setValue(model.getB());
         sliderC.setValue(model.getC());
+    }
+
+    @Override
+    public void stop(){
+        model.save();
     }
 
     public static void main(String[] args) {

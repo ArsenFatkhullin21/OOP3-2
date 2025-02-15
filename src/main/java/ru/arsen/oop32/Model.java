@@ -20,6 +20,7 @@ public class Model {
     public void setA(int a) {
         if (0<=a && a<=100) {
             this.a = a;
+            ensureUp();
         }
     }
 
@@ -28,8 +29,15 @@ public class Model {
     }
 
     public void setB(int b) {
-
-        this.b = b;
+        if (b>=a && b<=c) {
+            this.b = b;
+        }
+        if (b <a){
+            this.b = a;
+        }
+        if (b>c){
+            this.b = c;
+        }
 
     }
 
@@ -38,9 +46,29 @@ public class Model {
     }
 
     public void setC(int c) {
-        this.c = c;
+        if (c >= 0 && c <= 100) {
+            this.c = c;
+            ensureDown(); // Убедимся, что B ≤ C
+        }
     }
 
+    private void ensureDown(){
+        if (c<b){
+            b =c;
+        }
+        if (b<a){
+            a=b;
+        }
+    }
+
+    private void ensureUp() {
+        if (a > b) {
+            b = a;
+        }
+        if (b>c) {
+            c = b;
+        }
+    }
     public void save(){
         try (BufferedWriter bufferedWriter = new BufferedWriter(new FileWriter("model.txt"))){
             bufferedWriter.write(a + " " + b + " " + c);
