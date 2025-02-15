@@ -2,7 +2,10 @@ package ru.arsen.oop32;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.TextField;
@@ -102,16 +105,25 @@ public class HelloApplication extends Application {
             updateView();
         });
 
+        Label lblA = new Label("A  <=  B  <=  C");
+        lblA.setStyle(String.format("-fx-font-weight: bold; -fx-font-size: 50; -fx-font-family: 'Courier New';"));
 
-        VBox vBoxA = new VBox(10,textFieldA, spinnerA, sliderA);
-        VBox vBoxB = new VBox(10,textFieldB, spinnerB, sliderB);
-        VBox vBoxC = new VBox(10,textFieldC, spinnerC, sliderC);
 
-        FlowPane hBox = new FlowPane(vBoxA, vBoxB, vBoxC);
-        hBox.setHgap(50);
-        StackPane stackPane = new StackPane(hBox);
 
-        Scene scene = new Scene(stackPane, 320, 240);
+        VBox vBoxA = new VBox(10,  textFieldA, spinnerA, sliderA);
+        VBox vBoxB = new VBox(10,  textFieldB, spinnerB, sliderB);
+        VBox vBoxC = new VBox(10,  textFieldC, spinnerC, sliderC);
+
+        FlowPane flowPane = new FlowPane(vBoxA, vBoxB, vBoxC);
+        flowPane.setHgap(50);
+
+        BorderPane borderPane = new BorderPane();
+        borderPane.setTop(lblA);
+        BorderPane.setAlignment(lblA, Pos.CENTER);
+        borderPane.setCenter(flowPane);
+        borderPane.setPadding(new Insets(10));
+
+        Scene scene = new Scene(borderPane, 600, 240);
         stage.setTitle("Hello!");
         stage.setScene(scene);
         stage.show();
